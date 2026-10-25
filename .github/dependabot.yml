@@ -1,0 +1,7 @@
+# Keeps the Release workflow's pinned actions current: a bumped SHA arrives as a pull request.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

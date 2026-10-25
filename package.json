@@ -1,0 +1,28 @@
+{
+  "name": "automation-blueprint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Spec-to-production AI and workflow automation for Claude Code \u2014 every automation starts from a spec with real test cases, runs on code, n8n or Activepieces, and ships with its quality checks, alerts and run records.",
+  "type": "module",
+  "bin": {
+    "automation-blueprint": "bin/install.mjs"
+  },
+  "scripts": {
+    "package": "node scripts/build-folder.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "assets",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-emekaa/automation-blueprint.git"
+  },
+  "license": "UNLICENSED",
+  "author": "dev-emeka"
+}
