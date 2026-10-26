@@ -1,8 +1,10 @@
 # automation-blueprint
 
-**Spec-to-production AI and workflow automation for Claude Code — every automation starts from a spec with real test cases, runs on code, n8n or Activepieces, and ships with its quality checks, alerts and run records.**
+**Build AI and workflow automations with Claude Code that you can trust to run on their own.**
 
-Seven Claude Code skills (eight with the optional console) and the rules they depend on, for building automations that run unattended and can be trusted to: specify one from a rough idea with real examples, build it for the runtime that fits, measure its AI steps, deploy it to a server with backups, heartbeats and alerts, and fix it when something changes. It sits beside the [Backend Blueprint](https://github.com/dev-emekaa/backend-blueprint), which builds products with users — an automation inside such a product belongs there; standalone automations, for your own operations or a client's, belong here. The [Ideas Blueprint](https://github.com/dev-emekaa/ideas-blueprint) helps when the automation is itself what you sell.
+Every automation starts from a written spec and real examples. It is built in code (TypeScript or Python), n8n or Activepieces, tested, and its AI checked before it goes live — then it runs with alerts, backups and a record of everything it does. Eight Claude Code skills (one of them optional) and the rules behind them take you from an idea to a running automation, and help you fix it when something changes.
+
+**Not for** automations that are a feature of an app with users — those belong in that app's backend (see the [Backend Blueprint](https://github.com/dev-emekaa/backend-blueprint)).
 
 ```bash
 npx github:dev-emekaa/automation-blueprint init
@@ -20,49 +22,37 @@ npx github:dev-emekaa/automation-blueprint init [options]
 
 | Option | Effect |
 | --- | --- |
-| `--stack <s>` | `typescript` (default) or `python` — the language code automations are written in. n8n and Activepieces automations need neither, but the shared tooling is written in it |
-| `--console` | Also install the ops console skill and rule, for when non-technical people approve steps, review results or start runs of code automations |
+| `--stack <s>` | `typescript` (default) or `python` — the language for code automations and the shared tooling. Pick one even if you only use n8n or Activepieces |
+| `--console` | Also install the optional ops console, for non-technical people who approve steps, review results or start runs |
 | `--no-console` | Stop installing the console on later runs (remove its skill and rule yourself) |
 | `--personal` | Install skills to `~/.claude/skills` instead of the project |
-| `--force` | Overwrite existing files. Default is to skip them |
-| `--dry-run` | Print what would change, write nothing |
+| `--force` | Overwrite skills and rules. Default is to skip existing files |
+| `--dry-run` | Show what would change, write nothing |
 
-Re-running is safe: existing files are skipped and listed, never clobbered. The stack and console choice are saved in `.claude/automation-blueprint.json`, so later runs reuse them.
+Re-running is safe: existing files are skipped and listed. Your `--stack` and `--console` choices are saved in `.claude/automation-blueprint.json` and reused next time.
 
 ### What it writes
 
 ```
 .claude/
   skills/                          7 skills (8 with --console)
-  rules/
-    documentation-conventions.md   where everything is written down: the register, the connections registry, specs, cases, risk
-    tech-stack.md                  choosing a runtime, each runtime's tools, hosting, services, what is deliberately not used
-    workflow-standards.md          triggers, idempotency, retries, partial failure, waits and approvals, run records, dry run and supervision, n8n and Activepieces conventions
-    integrations.md                connections, integration calls and their wrappers, tools for AI steps, MCP
-    ai-steps.md                    when to use AI, budgets, validated output, untrusted content, agents, prompts, models, retrieval
-    security.md                    secrets, inbound endpoints, outbound calls, data, the server, supply chain, access, audit
-    testing.md                     cases as acceptance criteria, the test layers, recorded responses, testing on n8n and Activepieces
-    ci-cd.md                       versions and tags per automation, packaging, PR checks, the release gate, deploy, hotfixes, rollback — loads only when deploy files are touched
-    coding-standards.md            TypeScript or Python, from --stack
-    console.md                     --console only — loads only for console/
-  automation-blueprint.json        the options this install used, reused by later runs
+  rules/                           8 rules, plus coding-standards.md for your stack (and console.md with --console)
+  automation-blueprint.json        the options this install used
 CLAUDE.md                          documentation map · project configuration
 docs/
-  automations.md                   the register: every automation, its status, every inbound endpoint, the defaults
-  connections.md                   every external system, how it is reached, with what access
+  automations.md                   the register: every automation, its status, its endpoints, the defaults
+  connections.md                   every outside system, how it's reached, with what access
   automations/  infra/
 ```
 
 ### After installing
 
-1. Fill in the **project configuration** block in `CLAUDE.md` — the hosting target above all. Anything you leave blank, the skill that needs it asks for once.
-2. Run `/automation-setup`. It builds the foundation once.
-3. Run `/automation-spec` with a rough description of the first automation — or with no idea yet, and it runs discovery.
-4. Then `/automation-build`, `/ai-evals` where it has AI steps, and `/automation-deploy`.
+1. Fill in the **project configuration** in `CLAUDE.md` — above all, where it will be hosted. Anything you leave blank, the skill that needs it asks for once.
+2. Run `/automation-setup` once, to build the foundation.
+3. Run `/automation-spec` with a rough description of your first automation — or with no idea yet, and it helps you find one.
+4. Then `/automation-build`, `/ai-evals` if it uses AI, and `/automation-deploy`.
 
-### Skills are project-scoped by default
-
-They install to `.claude/skills/` and are meant to be committed: cloud sessions, scheduled runs and Cowork read only project skills, and rules that travel without the skills that execute them are conventions with no tooling. `--personal` exists for throwaway work.
+Commit `.claude/` with your project: cloud sessions and scheduled runs only read project skills. `--personal` is for throwaway work.
 
 ### Updating
 
@@ -70,105 +60,115 @@ They install to `.claude/skills/` and are meant to be committed: cloud sessions,
 npx github:dev-emekaa/automation-blueprint init --force
 ```
 
-It reuses the `--stack` and `--console` choice saved at install. `--force` overwrites skills and rules, including any local edits to them — run it on a clean working tree and read the diff before committing; that diff is the upgrade. `docs/automations.md`, `docs/connections.md` and `CLAUDE.md` are never rewritten, even with `--force`: they hold your project's records and values, so changes to their templates are yours to copy across. Pin a tag for a fixed version: `npx github:dev-emekaa/automation-blueprint#v1.0.0 init`. If an update doesn't seem to have landed, `npm cache clean --force`.
+- It reuses your saved `--stack` and `--console` choices.
+- Skills and rules are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
+- `docs/automations.md`, `docs/connections.md` and `CLAUDE.md` are never overwritten: they hold your project's records.
+- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.0.1 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
-## The pipeline
+## How an automation goes live
 
 ```
-/automation-setup    → the foundation, once
-/automation-spec     → per automation: goal, trigger, systems, steps, rules, side effects,
-                       checkpoints, budget, failure policy, data, risk, runtime — and the real cases   [Specced]
-/automation-build    → built for its runtime; tests on recorded responses; every case walked in dry run [Built]
-/ai-evals            → each AI step scored on the cases against thresholds you approve                 [Evaluated]
-/automation-deploy   → the Compose bundle, the server, credentials, backups, heartbeats, alerts;
-                       dry run, shadow mode or supervision by risk; real side effects on your approval  [Live]
+/automation-setup    the foundation, once
+/automation-spec     the spec and its real test cases, approved by you          → Specced
+/automation-build    built, tested, every case walked through without side effects → Built
+/ai-evals            each AI step scored against thresholds you approve        → Evaluated
+/automation-deploy   to production, checked, switched on with your approval    → Live
 
-/automation-fix      — whenever something goes wrong
-/automation-convert  — to move an automation to another runtime
-/automation-console  — optional, for non-technical operators
+/automation-fix      whenever something goes wrong
+/automation-convert  to move an automation to another runtime
+/automation-console  optional, for non-technical operators
 ```
+
+Nothing makes real changes in other systems until you approve it. A first release runs in dry run — doing everything except the actions — and a new version of a higher-risk automation runs **supervised**, with a person approving each outside action for an agreed period.
 
 ---
 
-## Runtimes
+## Where automations run
 
-One per automation, chosen in the spec; `/automation-convert` moves it later by rebuilding from the spec and proving the result on the same cases.
+**Runtime** — chosen per automation in the spec:
 
-| Runtime | When |
+| Runtime | Best when |
 | --- | --- |
-| **Code** — TypeScript or Python on Hatchet | AI steps carry the value, the logic branches, volume is high, a system has no connector, or it needs real tests and quality gates. Hatchet's dashboard is the operators' view of runs. A scheduled-script mode covers the simplest jobs |
-| **n8n** | The owner wants to see and adjust the flow on a canvas, and the systems have maintained nodes. Its licence allows internal use and running workflows for clients, on their instance or on yours as long as they never use it; clients using the editor on an instance you host needs n8n's commercial licence |
-| **Activepieces** | As n8n, when the client will use the editor on an instance you host — its Community edition is MIT; embedding, several projects per instance, team members and API keys are paid editions, so on Community each release includes a manual import step |
-| **Build sheet** — Zapier, Make | Only when the client must stay on that platform: an exact manual build guide, because neither platform's export format can be generated and verified |
+| **Code** (TypeScript or Python, on Hatchet) | AI does the important work, the logic is complex, volume is high, or a system has no ready-made connector. The default |
+| **n8n** | The owner wants to see and adjust the flow on a visual canvas |
+| **Activepieces** | As n8n, when its open-source licence fits better or the client already uses it |
+| **Zapier or Make** | Only when the client must stay on that platform: you get an exact build guide to follow by hand, for low-risk automations |
 
-**Where it runs.** Each deployment is one of three kinds: a **VPS** (the default — required for code automations, and the cheapest at volume), **n8n Cloud** or **Activepieces Cloud** (for platform-only clients with low volume and nobody to run a server). Setup recommends one per deployment, the spec checks each automation fits it (execution limits, allowed nodes, licence), and deploy follows the matching path — over SSH to the server, or through the platform's API with a managed PostgreSQL for the run records.
+The spec checks each platform's licence terms for your case; `tech-stack.md` has the details.
 
-Every VPS deployment is a **Docker Compose bundle** — Caddy with automatic HTTPS and rate limits, PostgreSQL, the runtime, pinned image versions, health checks, encrypted off-server backups — with each deployment's configuration committed beside it. A new version of a live automation replaces it after its checks — at higher risk under supervision, with a person approving each outward action for an agreed period — and two builds never act on the same trigger.
+**Hosting** — chosen per deployment in setup:
+
+- **A VPS** (the default): everything on one server with Docker Compose — HTTPS, the database, encrypted off-server backups. Required for code automations, and the cheapest at volume.
+- **n8n Cloud or Activepieces Cloud**: for clients with only platform automations, low volume and nobody to run a server. Run records go in a managed PostgreSQL database.
 
 ---
 
 ## The skills
 
 ### `/automation-setup`
-**The foundation, once.** The workspace for the chosen language and the shared core every code automation uses — run records, the side-effect record with its dry-run switch, budgets reserved before each model call, the model-call wrapper, signed approval links, the holding area — an example automation and integration wrapper, the local stack (Hatchet and PostgreSQL, and n8n or Activepieces at a pinned version when used), the register's defaults, the CI workflows, and an infra guide for the steps only you can do.
+Builds the foundation once: the shared code every automation uses (run records, side-effect tracking, AI budgets, approvals, pausing), a working example, the local development stack, the CI workflows, and a guide to the steps only you can do.
 **Writes** the foundation, `docs/infra/infra-setup.md`, the register's defaults
 
 ### `/automation-spec`
-**From a rough idea to an approved spec.** Takes whatever you have — a sentence, a document, a recording of the manual process — asks what is missing in one batch, and writes the spec: goal and measure, the trigger and its contract, inputs, every system with the narrowest access it needs, steps marked deterministic or AI, decision rules, side effects marked reversible or not, human checkpoints, volume, budget, failure policy, data, risk and runtime. Collects ten to thirty real examples as the cases, adds the cases they miss, has the spec reviewed independently, and waits for your approval. Discovery mode ranks your manual processes when you do not know what to automate; revise mode changes a live automation.
-**Writes** `spec.md`, `cases/`, the register's row, the connections it needs
+Turns a rough idea into an approved spec: what triggers it, every step, every system it touches and the least access it needs, every action it takes in other systems, where a person approves, the budget, what happens when things fail, and its risk. Collects 10–30 real examples as test cases. Can also help you find what to automate, or change a live automation.
+**Writes** the spec, its cases, the register's row, the connections it needs
 
 ### `/automation-build`
-**Builds one automation for its runtime.** Plans first; reuses or writes the integration for each system; builds every step, decision rule, side effect, approval and failure path in the spec and nothing else; records every run; tests on recorded responses; walks every case in dry-run mode in the chat; writes the runbook. On n8n and Activepieces it builds in the pinned local instance and commits the tested, normalised JSON; for Zapier or Make it writes the build sheet.
+Builds the automation exactly as specced, for its runtime, with tests on recorded responses, and walks every case with you in dry run before handing over.
 **Writes** the automation, its tests, its runbook, its endpoints in the register
 
 ### `/ai-evals`
-**Measures the AI steps.** Scores each the way its job demands — exact match for classification, field by field for extraction, rule checks then a calibrated judge for drafting, end state and tool calls for agents, and a perfect score required on the adversarial cases — against thresholds you approve; compares prompts and models on quality, cost and latency; turns production failures into cases. It is the release gate for every prompt, model or schema change.
+Measures each AI step on the real cases against thresholds you approve, compares prompts and models on quality and cost, and turns production mistakes into new cases. Every prompt or model change must pass it before release.
 **Writes** `evals.md`, the evals, prompt and model changes, new cases
 
 ### `/automation-deploy`
-**To production, safely.** Generates the deployment's Compose bundle, guides you through the server, DNS, credentials and OAuth consent, sets up backups with a restore test, heartbeats for every schedule and alerts for failures and budgets; releases through the pipeline; checks that the server exposes exactly what the register lists; runs a first release in dry run or shadow mode, and a new version under supervision, by risk; checks every go-live condition; and switches on real side effects only with your approval. Also staging, infrastructure releases, rollbacks, pausing and retiring.
+Takes an automation to production: the server or cloud account, credentials, backups, missed-run checks and alerts; the release; the dry run or supervision its risk calls for; and the go-live checklist. Also staging, rollbacks, pausing, resuming and retiring.
 **Writes** `deploy/{deployment}/`, `releases.md`, the register's status, the infra guide
 
-### `/automation-convert`
-**To another runtime.** Rebuilds from the spec, never by translating one platform's JSON into another's; proves every case and eval passes and compares it on recent production inputs; switches over by pausing the automation, swapping the builds and resuming — supervised where the risk calls for it — so nothing is lost and the two builds never both act.
-
 ### `/automation-fix`
-**When something goes wrong.** Contains it first if it is still causing harm; reproduces from the run record; classifies — a logic bug, a changed API, an expired connection, slipped AI quality, a cost or loop spike, a missed or duplicate run, bad input, a spec error, a change request; writes the failing test or case first; fixes surgically, retesting every automation that shares a changed integration; lists the side effects already made and handles them as you decide; ships through a release.
+When something goes wrong: pauses it if it's still causing harm, reproduces the problem from the run record, writes a failing test first, fixes it, and deals with any actions already sent — as you decide.
+**Writes** the fix, its tests and cases, the docs it changes
+
+### `/automation-convert`
+Moves an automation to another runtime by rebuilding it from the spec, proving it on the same cases, then pausing, swapping and resuming — so nothing is lost or done twice.
+**Writes** the new build, the runbook, the register's row
 
 ### `/automation-console` *(with `--console`)*
-**For non-technical operators of code automations.** A small web app over the run records: runs in business terms, run detail with the side-effect record, an approvals inbox, manual runs, the holding area, owner-editable settings, connection status and users — behind sign-in, with viewer, approver, operator and admin roles.
-
----
-
-## Working with the other blueprints
-
-- **Backend Blueprint** — when an automation calls a product's API built with it, that API is a connection like any other: its api-docs are the reference, its access a credential the backend issues for it, as its own principal in that backend's api-rbac, and anything wrong with it goes to the backend developer through `/automation-fix`'s report. An automation that is a feature *of* that product belongs in its backend instead.
-- **Web App Blueprint** — the optional console shares its interface stack (Next.js, Tailwind, shadcn/ui) at a fraction of its scope, but with no separate backend behind it, signs people in itself (Better Auth) and uses server actions; a product-grade interface over automations is a web app built with that blueprint.
-- **Ideas Blueprint** — for the business around an automation you sell; every automation still starts from its own spec.
+A small web app for non-technical operators of code automations: runs in plain terms, an approvals inbox, manual runs, held items, settings and users, behind sign-in with roles.
+**Writes** `console/`
 
 ---
 
 ## The folder version
 
-The downloadable, manual alternative to the installer. Build it from this repo:
+A downloadable alternative to the installer, built from the same files:
 
 ```bash
 npm run package
 ```
 
-It writes `dist/automation-blueprint/` and `dist/automation-blueprint-v{version}.zip`, from the same assets the installer uses. Its guide lives in `folder/README.md`.
+It writes `dist/automation-blueprint/` and `dist/automation-blueprint-v{version}.zip`. Its guide is `folder/README.md`.
 
 ### Releasing
 
 ```bash
-npm version minor        # bumps package.json, commits, and tags v1.1.0 (patch · minor · major)
+npm version patch        # bumps package.json, commits and tags (patch · minor · major)
 git push --follow-tags   # pushes the commit and the tag
 ```
 
-The zip appears under the release's **Assets** as `automation-blueprint-v1.1.0.zip` — that is the file to share. A tag that doesn't match the `package.json` version fails the build.
+The zip appears under the release's **Assets** as `automation-blueprint-v{version}.zip` — that is the file to share. A tag that doesn't match `package.json` fails the build.
 
 ---
 
-**Requires** Node 22 or later and Claude Code; Docker for the local stack; and for production a VPS and a domain — or, for a platform-only client, an n8n Cloud or Activepieces Cloud plan with its API and a managed PostgreSQL — model provider accounts and an S3-compatible bucket for backups (the setup skill's infra guide walks through them). **License** proprietary — all rights reserved.
+## Requires
+
+- Node 22 or later, and Claude Code
+- Docker, for the local development stack
+- For production: a VPS and a domain — or, for platform-only clients, an n8n Cloud or Activepieces Cloud plan with API access and a managed PostgreSQL database
+- Accounts with your AI model providers, and S3-compatible storage for backups
+
+`/automation-setup`'s infra guide walks you through each one.
+
+**License** proprietary — all rights reserved.

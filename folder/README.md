@@ -1,8 +1,10 @@
 # Automation Blueprint
 
-A spec-first workflow for building AI and workflow automations with Claude Code that run unattended and can be trusted to. Seven skills (eight with the optional console) and the rules they follow take an automation from a rough idea and real examples to a tested, evaluated, deployed and monitored automation — on code, n8n or Activepieces — with every run recorded and every side effect accounted for.
+Build AI and workflow automations with Claude Code that you can trust to run on their own.
 
-Automations here are standalone: your own operations, or work delivered to a client. An automation that is a feature inside a product with users belongs in that product's backend, built with the **Backend Blueprint**.
+Every automation starts from a written spec and real examples. It is built in code (TypeScript or Python), n8n or Activepieces, tested, and its AI checked before it goes live — then it runs with alerts, backups and a record of everything it does. Eight Claude Code skills (one of them optional) and the rules behind them take you from an idea to a running automation, and help you fix it when something changes.
+
+**Not for** automations that are a feature of an app with users — those belong in that app's backend (the Backend Blueprint covers those).
 
 ---
 
