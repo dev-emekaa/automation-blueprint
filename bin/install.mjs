@@ -195,7 +195,7 @@ ${c.b('Next')}
   4. Then ${c.b('/automation-build')}, ${c.b('/ai-evals')} where it has AI steps, and ${c.b('/automation-deploy')}.
 
   ${n} skills ${opts.dry ? 'would be installed' : 'installed'} to ${c.dim(opts.personal ? '~/.claude/skills' : '.claude/skills')}${
-    opts.personal ? c.y('\n  Note: personal skills are not read by cloud sessions, routines or Cowork.') : ''}
+    opts.personal ? c.y('\n  Note: personal skills are not read by cloud sessions or scheduled runs.') : ''}
 `);
 }
 

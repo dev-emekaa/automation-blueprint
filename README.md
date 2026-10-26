@@ -141,6 +141,25 @@ A small web app for non-technical operators of code automations: runs in plain t
 
 ---
 
+## The rules
+
+Loaded by Claude Code at the start of every session — except `ci-cd.md` and `console.md`, which load only when their files are touched.
+
+| Rule | Covers |
+| --- | --- |
+| `documentation-conventions.md` | Where everything about an automation is written down — the spec, its cases, the register, the runbook — and how it stays true |
+| `tech-stack.md` | The runtimes, the tools each uses, and where they run |
+| `workflow-standards.md` | How an automation is designed on any runtime: triggers, never doing an action twice, failures, approvals, run records, dry run and supervision, pausing — plus the n8n and Activepieces conventions |
+| `coding-standards.md` | How code automations are written, for TypeScript or Python — whichever `--stack` you chose |
+| `integrations.md` | How automations reach other systems: connections, API calls, and the tools an AI step may use |
+| `ai-steps.md` | How AI is used: when to use it, budgets, checking its output, untrusted content, agents, prompts and models |
+| `security.md` | Credentials used with nobody watching, inbound endpoints, content that may try to manipulate it, data, the server, supply chain |
+| `testing.md` | How an automation is proven before it runs on its own, and a test for every bug |
+| `ci-cd.md` | How a change moves from a pull request to a running automation, and rollback |
+| `console.md` *(with `--console`)* | The operator console: what it may do, its stack and its roles |
+
+---
+
 ## The folder version
 
 A downloadable alternative to the installer, built from the same files:
