@@ -28,7 +28,7 @@ Take whatever I give — a sentence, a document, a recording of the manual proce
 - What it must never do.
 - **Real examples**: ten to thirty past inputs, each with what the right outcome was. Without them no AI step can be checked; if I cannot provide them yet, the spec records that and the automation cannot reach `Evaluated` until they exist.
 
-If the answers show the automation is a feature of a product with users, say so and stop: it belongs in that product's backend.
+If the answers show the automation is a feature of a product with users, say so and stop: it belongs in that product's backend. If they show the process shouldn't be automated — it is cheaper by hand at its volume, it needs judgement no rule or model can be trusted with, or a wrong run would cost more than the automation saves — say that too, with what I should do instead, and stop unless I overrule it.
 
 ## Step 2 — Write the spec
 

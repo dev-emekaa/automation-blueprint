@@ -2,7 +2,7 @@
 
 Build AI and workflow automations with Claude Code that you can trust to run on their own.
 
-Every automation starts from a written spec and real examples. It is built in code (TypeScript or Python), n8n or Activepieces, tested, and its AI checked before it goes live — then it runs with alerts, backups and a record of everything it does. Eight Claude Code skills (one of them optional) and the rules behind them take you from an idea to a running automation, and help you fix it when something changes.
+Every automation starts from a written spec and real examples. It is built in code (TypeScript or Python), n8n or Activepieces, tested, and its AI checked before it goes live — then it runs with alerts, backups and a record of everything it does. Nine Claude Code skills (one of them optional) and the rules behind them take you from an idea to a running automation, and help you fix it when something changes.
 
 **Not for** automations that are a feature of an app with users — those belong in that app's backend (the Backend Blueprint covers those).
 
@@ -12,7 +12,7 @@ Every automation starts from a written spec and real examples. It is built in co
 
 ```
 automation-blueprint/
-  skills/                8 skills, one folder each (automation-console is optional)
+  skills/                9 skills, one folder each (automation-console is optional)
   rules/                 the rules every project uses, plus the optional console rule
     stacks/
       typescript/        coding-standards.md for TypeScript
@@ -54,6 +54,10 @@ Then:
 
 ## Which skill when
 
+**Existing automations**
+
+`/automation-adopt` — once: documents what runs the way these skills expect, with every fact citing its source, and lists where it departs from the rules. Then they are run like any other.
+
 **A new automation**
 
 1. `/automation-setup` — once per repository: the shared core, the local stack, the CI, the infra guide.
@@ -87,6 +91,8 @@ Then:
 **`/automation-convert`** — A move to another runtime, rebuilt from the spec and proven on the same cases, evals and recent production inputs, switched over without a gap or a double run.
 
 **`/automation-fix`** — Contain, reproduce from the run record, classify, failing test first, surgical fix, every automation sharing a changed integration retested, side effects already made handled as you decide, shipped through a release.
+
+**`/automation-adopt`** — Brings existing automations under the blueprint, once — a repo, an n8n or Activepieces instance, or scripts: inventories what runs, says whether each runtime fits, reconstructs the register, the connections and a spec and runbook per automation with citations, and lists deviations as issues, revisions or conversions. Changes nothing that runs.
 
 **`/automation-console`** *(optional, code automations)* — Runs in business terms, run detail, an approvals inbox, manual runs, the holding area, owner-editable settings, connection status and users, behind sign-in with roles.
 

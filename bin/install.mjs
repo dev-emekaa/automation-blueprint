@@ -132,7 +132,7 @@ ${c.b('Options')}
   --dry-run         Print what would change, write nothing
 
 ${c.b('What it writes')}
-  .claude/skills/          7 skills ${c.dim('(8 with --console)')}
+  .claude/skills/          8 skills ${c.dim('(9 with --console)')}
   .claude/rules/           conventions · tech stack · workflow standards · integrations · AI steps
                            security · testing · ci-cd · coding standards ${c.dim('(+ console)')}
   docs/                    automations.md (the register) · connections.md · automations/ · infra/
@@ -193,6 +193,8 @@ ${c.b('Next')}
   3. Run ${c.b('/automation-spec')} with a rough description of the first automation, or with no
      idea yet and it runs discovery.
   4. Then ${c.b('/automation-build')}, ${c.b('/ai-evals')} where it has AI steps, and ${c.b('/automation-deploy')}.
+
+  Already have automations? Run ${c.b('/automation-adopt')} first.
 
   ${n} skills ${opts.dry ? 'would be installed' : 'installed'} to ${c.dim(opts.personal ? '~/.claude/skills' : '.claude/skills')}${
     opts.personal ? c.y('\n  Note: personal skills are not read by cloud sessions or scheduled runs.') : ''}

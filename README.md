@@ -2,7 +2,7 @@
 
 **Build AI and workflow automations with Claude Code that you can trust to run on their own.**
 
-Every automation starts from a written spec and real examples. It is built in code (TypeScript or Python), n8n or Activepieces, tested, and its AI checked before it goes live — then it runs with alerts, backups and a record of everything it does. Eight Claude Code skills (one of them optional) and the rules behind them take you from an idea to a running automation, and help you fix it when something changes.
+Every automation starts from a written spec and real examples. It is built in code (TypeScript or Python), n8n or Activepieces, tested, and its AI checked before it goes live — then it runs with alerts, backups and a record of everything it does. Nine Claude Code skills (one of them optional) and the rules behind them take you from an idea to a running automation, and help you fix it when something changes.
 
 **Not for** automations that are a feature of an app with users — those belong in that app's backend (see the [Backend Blueprint](https://github.com/dev-emekaa/backend-blueprint)).
 
@@ -35,7 +35,7 @@ Re-running is safe: existing files are skipped and listed. Your `--stack` and `-
 
 ```
 .claude/
-  skills/                          7 skills (8 with --console)
+  skills/                          8 skills (9 with --console)
   rules/                           8 rules, plus coding-standards.md for your stack (and console.md with --console)
   automation-blueprint.json        the options this install used
 CLAUDE.md                          documentation map · project configuration
@@ -52,6 +52,8 @@ docs/
 3. Run `/automation-spec` with a rough description of your first automation — or with no idea yet, and it helps you find one.
 4. Then `/automation-build`, `/ai-evals` if it uses AI, and `/automation-deploy`.
 
+**Already have automations?** Run `/automation-adopt` first. It documents what runs the way these skills expect, and lists where it departs from the rules.
+
 Commit `.claude/` with your project: cloud sessions and scheduled runs only read project skills. `--personal` is for throwaway work.
 
 ### Updating
@@ -63,7 +65,7 @@ npx github:dev-emekaa/automation-blueprint init --force
 - It reuses your saved `--stack` and `--console` choices.
 - Skills and rules are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `docs/automations.md`, `docs/connections.md` and `CLAUDE.md` are never overwritten: they hold your project's records.
-- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.0.1 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.1.0 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
@@ -79,6 +81,7 @@ npx github:dev-emekaa/automation-blueprint init --force
 /automation-fix      whenever something goes wrong
 /automation-convert  to move an automation to another runtime
 /automation-console  optional, for non-technical operators
+/automation-adopt    once, to bring existing automations under the blueprint
 ```
 
 Nothing makes real changes in other systems until you approve it. A first release runs in dry run — doing everything except the actions — and a new version of a higher-risk automation runs **supervised**, with a person approving each outside action for an agreed period.
@@ -134,6 +137,10 @@ When something goes wrong: pauses it if it's still causing harm, reproduces the 
 ### `/automation-convert`
 Moves an automation to another runtime by rebuilding it from the spec, proving it on the same cases, then pausing, swapping and resuming — so nothing is lost or done twice.
 **Writes** the new build, the runbook, the register's row
+
+### `/automation-adopt`
+Brings existing automations under the blueprint, once — a repo, an n8n or Activepieces instance, or scripts: inventories what runs, says whether each runtime fits, reconstructs the register, the connections and a spec and runbook per automation from what exists with every fact citing its source, and lists where they depart from the rules as issues, revisions or conversions. Changes nothing that runs.
+**Writes** the docs, `docs/adoption-report.md`
 
 ### `/automation-console` *(with `--console`)*
 A small web app for non-technical operators of code automations: runs in plain terms, an approvals inbox, manual runs, held items, settings and users, behind sign-in with roles.
