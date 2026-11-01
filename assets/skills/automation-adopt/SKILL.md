@@ -15,16 +15,16 @@ Two rules hold throughout. **Nothing is invented:** every reconstructed fact cit
 
 ## Step 1 — Inventory → **wait for my approval**
 
-Read the repository, the workflow exports, or the instance I give you access to — one automation at a time, every step of it; never summarise a workflow you have not opened node by node — and present:
+Read the repository, the workflow exports, or the instance I give you access to — a script or crontab that exists only on a server is read there and cited by host and path; it reaches the repository through its standing item, not here — one automation at a time, every step of it; never summarise a workflow you have not opened node by node — and present:
 
 - **What runs:** every automation, with its trigger (schedule, webhook, event, manual), the systems it reads and writes, the side effects it causes, whether it has AI steps, where it is deployed, and whether it is on.
-- **Shape:** the runtime of each (code, n8n, Activepieces, Zapier or Make), the language and framework for code, how it is deployed and hosted, how secrets are held, what records runs, what alerts.
+- **Shape:** the runtime of each (code, n8n, Activepieces, Zapier or Make), the language and framework for code, the version each runs (the n8n or Activepieces release, the Node or Python version), how it is deployed and hosted, how secrets are held, what records runs, what alerts.
 - **Connections:** every external system, how it is reached, which account acts, and the access it has.
 - **What is written down:** any docs, and how far they match what runs.
 
 A credential found in a workflow, an export or the repository is raised to me the moment it is found, not held for the report: `security` says rotate first.
 
-Then the **runtime verdict**, from `tech-stack` → Choosing a runtime, per automation: the runtime it is on, whether that fits its risk and deployment kind, and whether it stays or is converted. A code automation that is neither on Hatchet nor a fit for scheduled-script mode, or on a host other than the blueprint's kinds, keeps the documentation skills — `/automation-spec` in revise mode and the register — and loses `/automation-build`, `/ai-evals`, `/automation-deploy`, `/automation-fix` and `/automation-console` until it is converted with `/automation-convert` or rebuilt. A code automation in the other language from the installed `coding-standards` is said so too: I re-run the installer with the right `--stack`, or it is converted. Say which skills apply to which automation.
+Then the **runtime verdict**, from `tech-stack` → Choosing a runtime, per automation: the runtime it is on, whether that fits its risk and deployment kind, and whether it stays or is converted. A code automation that is neither on Hatchet nor a fit for scheduled-script mode, or on a host other than the blueprint's kinds, keeps the documentation skills — `/automation-spec` in revise mode and the register — and loses `/automation-build`, `/ai-evals`, `/automation-deploy`, `/automation-fix` and `/automation-console` until it is converted with `/automation-convert` or rebuilt. A code automation in the other language from the installed `coding-standards` is said so too: I re-run the installer with the right `--stack` and `--force` (it replaces `coding-standards.md` only with `--force`), or it is converted. Say which skills apply to which automation.
 
 I approve the inventory and the verdicts, or correct them. Nothing is written before that.
 
@@ -45,28 +45,29 @@ Two lists, with nothing changed:
 - **Foundation gaps** — what `/automation-setup` gives a new project and this one lacks: run records, idempotency around side effects, the pause switch, budgets on AI steps, approvals, alerting, backups, the CI workflows, the infra guide.
 - **Deviations** — where an automation departs from the rules (`security` first: credentials, inbound endpoints, untrusted content; then `workflow-standards`: idempotency, partial failure, approvals, and the n8n or Activepieces conventions where that is the runtime — the workflow in the repository at its fixed id, the Config node, the guard, the run-record writes, the error workflow, credentials only in the store; then `integrations`; `ai-steps` for AI steps), and where the spec's risk level demands a checkpoint or supervision the automation doesn't have. Each finding: source, the rule it fails, severity, the fix.
 
-Route each item: an **`/automation-fix` item** when it is one change to one automation; a **revision of the spec** through `/automation-spec` in revise mode when the automation should behave differently; a **conversion** through `/automation-convert` when the runtime verdict said so — the report says what the source lacks (run keys, a pause switch, run records), so that skill's parity check runs on the source's own logs and its cut-over is stop the old, start the new, under supervision where the risk calls for it, with me doing the stop.
+Route each item: an **`/automation-fix` item** when it is one change to one automation; a **revision of the spec** through `/automation-spec` in revise mode when the automation should behave differently; a **conversion** through `/automation-convert` when the runtime verdict said so — the report says what the source lacks (run keys, a pause switch, run records), so that skill's parity check runs on the source's own logs and its cut-over is stop the old, start the new, under supervision where the risk calls for it, with me doing the stop. For an automation the verdict left with the documentation skills only, the lists name no skill: its items are findings for me, and inputs to its conversion.
 
-Every adopted automation on a fitting runtime has one standing item before any other change to it, routed to `/automation-fix` and done once `/automation-setup` has built the foundation: **bring it into the repository as the blueprint lays it out, with no change to what it does** — the export normalised at its fixed id, or the code in its package; the Config node, the guard and the run-record writes; a `VERSION` for the build that is live; and its first release through the pipeline. Until that item is done, `/automation-fix` can reproduce and plan but nothing ships; and until the cases the spec says are missing exist, and `/ai-evals` has run where there are AI steps, no new version can reach `Evaluated`. Say this per automation in the report.
+Every adopted automation on a fitting runtime has one standing item before any other change to it, done once `/automation-setup` has built the foundation and routed to `/automation-convert` as a **same-runtime conversion** (that skill's "Bringing in an adopted automation"): **bring it into the repository as the blueprint lays it out, with no change to what it does** — the export normalised at its fixed id, or the code in its package; the Config node, the guard and the run-record writes; its first `VERSION`; parity proved on the source's own logs; then the switch, where I stop the old build and the pipeline releases the new one as a new version — never a first-release dry run, which would leave the automation doing nothing with the old build gone. Until that item is done, `/automation-fix` can reproduce and plan but nothing ships; and until the cases the spec says are missing exist, and `/ai-evals` has run where there are AI steps, no new version can reach `Evaluated`. Say this per automation in the report.
 
 A `high`-risk automation running without the checkpoints its risk requires is the first item. Whether it pauses now is my decision; if I say so, it is paused the way its runtime allows — the workflow deactivated, the cron entry disabled — by me, and its register row reads `Paused` with the reason.
 
 ## Step 4 — Approve, per automation → **wait for my approval**
 
-Present each automation's spec, runbook and register row with their citations, lowest risk first, and the two lists. I confirm the docs are true — opening a cited step takes seconds — or correct them; marker and citations come off each approved document. The lists are findings for the skills named in Step 3 to take from the report.
+Present each automation's spec, runbook and register row with their citations, lowest risk first, and the two lists. I confirm the docs are true — opening a cited step takes seconds — or correct them; marker and citations come off each approved document. The lists are findings I hand to `/automation-fix`, `/automation-spec` and `/automation-convert` from the report.
 
 ## Step 5 — Record
 
-1. `CLAUDE.md`: the project configuration from the inventory, the deployments, a row for `docs/adoption-report.md` in the documentation map, and a line per automation that is not on the blueprint's runtimes: `Runtime: {what it is} — documentation skills only until converted; see docs/adoption-report.md`.
-2. **`docs/adoption-report.md`:** the inventory, the verdicts, what was written and from where (each document's citations), the foundation gaps, the deviations with their routing, the standing item per automation, and what I should still verify by hand. Dated.
+1. `CLAUDE.md`: the project configuration from the inventory (the platform version in the Hosting row for a vendor cloud; for a `vps` it stays in the report, since the pin lives in the Compose bundle), the deployments, a row for `docs/adoption-report.md` in the documentation map, and a line per automation that is not on the blueprint's runtimes: `Runtime: {what it is} — documentation skills only until converted; see docs/adoption-report.md`.
+2. **`docs/adoption-report.md`:** the inventory, the verdicts, what was written and from where (each document's citations), the foundation gaps, the deviations with their routing, the standing item per automation, and what I should still verify by hand. Dated. It names environment variables and services, never their values.
 3. Commit the docs and the report.
 
 ## Report
 
-A few lines: how many automations, which skills apply to which, how many issues and conversions, which automation I should look at first and why, and the next step — `/automation-setup` to add the foundation if it's missing, then `/automation-fix` on each automation's standing item, or `/automation-convert` for the first conversion.
+A few lines: how many automations, which skills apply to which, how many issues and conversions, which automation I should look at first and why, and the next step — `/automation-setup` to add the foundation if it's missing, then `/automation-convert` on each automation's standing item, and on the first conversion the verdict called for.
 
 ## Rules
 
 - Nothing that runs is changed, paused or redeployed here. Pausing a dangerous automation is my decision.
 - No spec says what the automation doesn't do. Intent it doesn't carry is a question to me.
 - Existing docs are inputs, not truth: what runs wins, and the disagreement is noted.
+- Environment variables are named, never valued. Nothing from a credential store, `.env` or the host's settings is quoted in the inventory, a citation or the report; a committed secret is a `security` deviation.

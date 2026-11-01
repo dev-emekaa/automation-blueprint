@@ -15,7 +15,7 @@ Read from `CLAUDE.md`, asking once for anything missing and offering to record i
 
 - **New** — the default: the row is `Specced`.
 - **Revision** — a new version of a `Live` automation, after `/automation-spec` revise mode: the row reads `Live · next Specced`. The build changes the automation in place; the live version keeps running from its tag until `/automation-deploy` replaces it.
-- **Conversion** — called by `/automation-convert` for another runtime: the row is `Live`, and the conversion was approved there. The new build goes in `automations/{slug}/next/`, beside the live one, until the cut-over moves it up. Every path in Step 3 is read with `next/` inserted (`automations/{slug}/next/workflow.json`, a code package at `automations/{slug}/next/`, which the workspace includes as a member).
+- **Conversion** — called by `/automation-convert` for another runtime, or the same one when bringing in an adopted automation: the row is `Live` (or `Paused` or `Built` for an adopted build), and the conversion was approved there. The new build goes in `automations/{slug}/next/`, beside the live one, until the cut-over moves it up. Every path in Step 3 is read with `next/` inserted (`automations/{slug}/next/workflow.json`, a code package at `automations/{slug}/next/`, which the workspace includes as a member).
 
 ## Read first
 
@@ -51,7 +51,7 @@ You may use connectors in this session to look at real data shapes, read-only (`
 
 ## Step 3 — Build
 
-**`VERSION`**: `0.1.0` for a new automation. A revision leaves it alone — `/automation-deploy` bumps it. A conversion leaves the live build's `VERSION` alone and writes `next/VERSION` as the live version's next minor (next major if the trigger contract changes), which the cut-over moves up.
+**`VERSION`**: `0.1.0` for a new automation. A revision leaves it alone — `/automation-deploy` bumps it. A conversion leaves the live build's `VERSION` alone and writes `next/VERSION` as the live version's next minor (next major if the trigger contract changes) — or `1.0.0` when the register shows no version, for an adopted build being brought in — which the cut-over moves up.
 
 **The first real build** deletes the examples setup made — `automations/_example/`, `integrations/_example/`, `deploy/local/config/_example.json` and the example's service in `deploy/local/compose.yml` — unless I ask to keep them.
 
