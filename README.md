@@ -26,7 +26,7 @@ npx github:dev-emekaa/automation-blueprint init [options]
 | `--console` | Also install the optional ops console, for non-technical people who approve steps, review results or start runs |
 | `--no-console` | Stop installing the console on later runs (remove its skill and rule yourself) |
 | `--personal` | Install skills to `~/.claude/skills` instead of the project |
-| `--force` | Overwrite skills and rules. Default is to skip existing files |
+| `--force` | Overwrite skills, rules and the guide. Default is to skip existing files |
 | `--dry-run` | Show what would change, write nothing |
 
 Re-running is safe: existing files are skipped and listed. Your `--stack` and `--console` choices are saved in `.claude/automation-blueprint.json` and reused next time.
@@ -43,6 +43,7 @@ docs/
   automations.md                   the register: every automation, its status, its endpoints, the defaults
   connections.md                   every outside system, how it's reached, with what access
   automations/  infra/
+  blueprint/                       this README, for Claude to read in the project
 ```
 
 ### After installing
@@ -63,9 +64,9 @@ npx github:dev-emekaa/automation-blueprint init --force
 ```
 
 - It reuses your saved `--stack` and `--console` choices.
-- Skills and rules are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
+- Skills, rules and the guide in `docs/blueprint/` are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `docs/automations.md`, `docs/connections.md` and `CLAUDE.md` are never overwritten: they hold your project's records.
-- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.1.0 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.1.1 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 

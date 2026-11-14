@@ -9,7 +9,7 @@ import { cp, mkdir, rm, writeFile, readFile } from 'node:fs/promises';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { ASSETS, STACKS, RULES, OPTIONAL_RULES, REGISTERS, claudeTemplate } from '../lib/assets.mjs';
+import { ASSETS, GUIDE, GUIDE_NAME, STACKS, RULES, OPTIONAL_RULES, REGISTERS, claudeTemplate } from '../lib/assets.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const { version } = JSON.parse(await readFile(join(ROOT, 'package.json'), 'utf8'));
@@ -22,6 +22,9 @@ await mkdir(OUT, { recursive: true });
 
 // Guide
 await cp(join(ROOT, 'folder', 'README.md'), join(OUT, 'README.md'));
+
+// The repo README, installed into the project as docs/blueprint/automation-blueprint.md
+await cp(GUIDE, join(OUT, 'docs', 'blueprint', GUIDE_NAME));
 
 // Skills — one folder each, as Claude Code expects (the console skill included; the README says it is optional)
 await cp(join(ASSETS, 'skills'), join(OUT, 'skills'), { recursive: true });

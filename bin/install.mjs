@@ -7,7 +7,7 @@ import { readdir, mkdir, copyFile, readFile, writeFile, stat } from 'node:fs/pro
 import { existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { homedir } from 'node:os';
-import { ASSETS, STACKS, DEFAULT_STACK, RULES, OPTIONAL_RULES, DOC_DIRS, REGISTERS, claudeTemplate } from '../lib/assets.mjs';
+import { ASSETS, GUIDE, GUIDE_NAME, STACKS, DEFAULT_STACK, RULES, OPTIONAL_RULES, DOC_DIRS, REGISTERS, claudeTemplate } from '../lib/assets.mjs';
 
 const CWD = process.cwd();
 const MARKER = '<!-- automation-blueprint:docs-map -->';
@@ -101,6 +101,11 @@ async function installDocs(opts) {
   for (const [tpl, dest] of Object.entries(REGISTERS)) await putFile(join(ASSETS, 'templates', tpl), join(CWD, dest), keep);
 }
 
+// The repo README, so a session in the project can read how the blueprint works.
+async function installGuide(opts) {
+  await putFile(GUIDE, join(CWD, 'docs', 'blueprint', GUIDE_NAME), opts);
+}
+
 const docsMap = async (stack) => `\n${MARKER}\n${await claudeTemplate(stack)}`;
 
 async function installClaudeMd(opts) {
@@ -136,6 +141,7 @@ ${c.b('What it writes')}
   .claude/rules/           conventions · tech stack · workflow standards · integrations · AI steps
                            security · testing · ci-cd · coding standards ${c.dim('(+ console)')}
   docs/                    automations.md (the register) · connections.md · automations/ · infra/
+  docs/blueprint/          automation-blueprint.md — the blueprint's README, for Claude sessions in the project
   CLAUDE.md                documentation map, project configuration
 `);
 }
@@ -164,6 +170,7 @@ async function main() {
   const n = await installSkills(opts);
   await installRules(opts);
   await installDocs(opts);
+  await installGuide(opts);
   await installClaudeMd(opts);
   if (!opts.dry) {
     // The stack is saved only once its coding standards are the ones installed.

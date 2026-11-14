@@ -17,6 +17,8 @@ automation-blueprint/
     stacks/
       typescript/        coding-standards.md for TypeScript
       python/            coding-standards.md for Python
+  docs/
+    blueprint/           automation-blueprint.md — the guide, to copy into docs/ so Claude can read how the blueprint works
   templates/
     CLAUDE.md            the blocks to add to your project's CLAUDE.md
     automations.md       the register, to copy to docs/automations.md
@@ -36,6 +38,7 @@ mkdir -p .claude/rules docs/automations docs/infra
 cp -R "$BP/skills" .claude/
 cp "$BP"/rules/*.md .claude/rules/
 cp "$BP/rules/stacks/$STACK/coding-standards.md" .claude/rules/
+cp -R "$BP/docs/blueprint" docs/
 [ -f docs/automations.md ] || cp "$BP/templates/automations.md" docs/automations.md
 [ -f docs/connections.md ] || cp "$BP/templates/connections.md" docs/connections.md
 ```
@@ -115,6 +118,6 @@ Then:
 
 ---
 
-**Requires** Claude Code; Docker for the local stack; and for production a VPS and a domain — or, for a platform-only client, an n8n Cloud or Activepieces Cloud plan with its API and a managed PostgreSQL — model provider accounts and an S3-compatible bucket for backups. Updating means running the same commands again — and deleting the console skill and rule again if you do not use them: skills and rules are replaced — any edits you made to them are overwritten, so keep your own changes in `CLAUDE.md` or new rule files — while `docs/automations.md` and `docs/connections.md` are only copied when they do not exist yet, because they hold your project's records.
+**Requires** Claude Code; Docker for the local stack; and for production a VPS and a domain — or, for a platform-only client, an n8n Cloud or Activepieces Cloud plan with its API and a managed PostgreSQL — model provider accounts and an S3-compatible bucket for backups. Updating means running the same commands again — and deleting the console skill and rule again if you do not use them: skills, rules and the guide are replaced — any edits you made to them are overwritten, so keep your own changes in `CLAUDE.md` or new rule files — while `docs/automations.md` and `docs/connections.md` are only copied when they do not exist yet, because they hold your project's records.
 
 © dev-emeka. All rights reserved. Licensed for use in your own projects; not for redistribution.

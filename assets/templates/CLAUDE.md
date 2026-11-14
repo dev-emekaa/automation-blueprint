@@ -10,6 +10,7 @@
 | Shared integration wrappers *(code)* | `integrations/{system}/` |
 | Deployments | `deploy/{deployment}/` |
 | Ops console *(optional)* | `console/` |
+| Blueprint guide | `docs/blueprint/automation-blueprint.md` |
 
 ## Project configuration
 
