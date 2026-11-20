@@ -44,7 +44,7 @@ A Compose file for development, `deploy/local/compose.yml`, with only what the r
 
 ## Step 5 — CI
 
-The three workflows `ci-cd` defines — PR checks, the release gate and the deploy — with actions pinned to commit SHAs, least-privilege tokens, and the environments' secrets used only where `ci-cd` says. Dependabot for packages, actions and images. In the infra guide: turning on secret scanning with push protection where the repository's plan has it, or that the pre-commit hook and Pipeline 1's scan cover it where it does not.
+The three workflows `ci-cd` defines — PR checks, the release gate and the deploy — with actions pinned to commit SHAs, least-privilege tokens, and the environments' secrets used only where `ci-cd` says. Dependabot for packages, actions and images — weekly, one grouped PR per ecosystem for minor and patch updates and one PR per major. In the infra guide: turning on secret scanning with push protection where the repository's plan has it, or that the pre-commit hook and Pipeline 1's scan cover it where it does not.
 
 ## Step 6 — Verify and report
 

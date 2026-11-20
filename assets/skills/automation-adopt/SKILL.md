@@ -59,7 +59,8 @@ Present each automation's spec, runbook and register row with their citations, l
 
 1. `CLAUDE.md`: the project configuration from the inventory (the platform version in the Hosting row for a vendor cloud; for a `vps` it stays in the report, since the pin lives in the Compose bundle), the deployments, a row for `docs/adoption-report.md` in the documentation map, and a line per automation that is not on the blueprint's runtimes: `Runtime: {what it is} — documentation skills only until converted; see docs/adoption-report.md`.
 2. **`docs/adoption-report.md`:** the inventory, the verdicts, what was written and from where (each document's citations), the foundation gaps, the deviations with their routing, the standing item per automation, and what I should still verify by hand. Dated. It names environment variables and services, never their values.
-3. Commit the docs and the report.
+3. **`docs/issues.md`:** every item the report routes to `/automation-fix`, as an entry, so the next fix session starts from them.
+4. Commit the docs and the report.
 
 ## Report
 

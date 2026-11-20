@@ -93,7 +93,7 @@ Then:
 
 **`/automation-convert`** — A move to another runtime, rebuilt from the spec and proven on the same cases, evals and recent production inputs, switched over without a gap or a double run.
 
-**`/automation-fix`** — Contain, reproduce from the run record, classify, failing test first, surgical fix, every automation sharing a changed integration retested, side effects already made handled as you decide, shipped through a release.
+**`/automation-fix`** — Contain, reproduce from the run record, classify, failing test first, surgical fix, every automation sharing a changed integration retested, side effects already made handled as you decide, shipped through a release. Starts from the `open` entries in `docs/issues.md`, then the issues you give it.
 
 **`/automation-adopt`** — Brings existing automations under the blueprint, once — a repo, an n8n or Activepieces instance, or scripts: inventories what runs, says whether each runtime fits, reconstructs the register, the connections and a spec and runbook per automation with citations, and lists deviations as issues, revisions or conversions. Changes nothing that runs.
 

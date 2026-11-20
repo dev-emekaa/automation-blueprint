@@ -87,7 +87,7 @@ Each deployment — one per owner or client — has one **kind**, chosen in `/au
 | Error tracking *(code runtime, optional)* | Sentry, scrubbed as `security` says |
 | LLM tracing | The run record (`workflow-standards` → Run records) by default; Langfuse when an automation needs deeper tracing and the owner accepts its extra services |
 | CI/CD | GitHub Actions |
-| Dependency updates | Dependabot for packages, GitHub Actions and the Compose bundle's images |
+| Dependency updates | Dependabot for packages, GitHub Actions and the Compose bundle's images — weekly, one grouped PR per ecosystem for minor and patch updates, one PR per major |
 
 ## Deliberately not used
 

@@ -6,6 +6,7 @@
 | Connections registry | `docs/connections.md` |
 | Specs, cases, evals, runbooks, releases | `docs/automations/{slug}/` |
 | Infra setup | `docs/infra/infra-setup.md` |
+| Issues | `docs/issues.md` |
 | Automations | `automations/{slug}/` |
 | Shared integration wrappers *(code)* | `integrations/{system}/` |
 | Deployments | `deploy/{deployment}/` |

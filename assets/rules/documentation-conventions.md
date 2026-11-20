@@ -33,6 +33,7 @@ An automation's risk is the highest risk of any of its side effects. Money is al
 | **Build sheet** — the manual build guide, `build-sheet` runtime only | `docs/automations/{slug}/build-sheet.md` | `/automation-build` or `/automation-convert` | `/automation-fix` |
 | **Infra guide** — every step only a person can do | `docs/infra/infra-setup.md` | `/automation-setup` | `/automation-deploy` |
 | **Adoption report** — only where automations existed before the blueprint: what `/automation-adopt` found, wrote and flagged. Docs it reconstructed carry a `Reverse-engineered … — verify` line until approved | `docs/adoption-report.md` | `/automation-adopt` | — |
+| **Issues** — one entry per issue found and not fixed in the session that found it: `### {id} · {automation}`, then **Found** (the date, and the skill or session), **Expected**, **Observed**, **Status** `open`; a resolved entry moves to `docs/issues-resolved.md` with the date and one line | `docs/issues.md` | Whichever skill finds one, or the owner | `/automation-fix` |
 | **Project configuration** | `CLAUDE.md` | The installer | `/automation-setup`, `/automation-deploy`, `/automation-console` |
 
 The spec and its cases are **runtime-neutral**: they describe what the automation must do, never how one runtime does it. That is what makes an automation portable — `/automation-convert` rebuilds from them and proves the new build against the same cases.
@@ -115,6 +116,6 @@ deploy/{deployment}/config/      each automation's configuration for that deploy
 - Before working on an automation, read its spec, its cases, its row in the register, and the connections it uses.
 - Each skill starts from an up-to-date `origin/main` that holds the PR of the step before it — the spec for a build, the build for evals, the evals for a deploy. If that PR is not merged yet, stop and ask.
 - Existing drafts are unvalidated: take stock of what exists first, and fix files rather than regenerating them.
-- Docs describe the automation as it is. They never mention issues, fixes, reviews or decisions taken along the way; the release record and git hold the history.
+- Docs describe the automation as it is. They never mention issues, fixes, reviews or decisions taken along the way; `docs/issues.md` holds the open issues, and the release record and git hold the history.
 - A doc is never edited to match what the code happens to do. If the code is right and the doc is wrong, the spec changes through revise mode; if the doc is right, the code is fixed. The one exception is `/automation-adopt`, which writes the first docs from what runs.
 - No document holds a secret, a token, a personal record, or an unredacted production payload.

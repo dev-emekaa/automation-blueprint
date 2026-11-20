@@ -66,7 +66,7 @@ npx github:dev-emekaa/automation-blueprint init --force
 - It reuses your saved `--stack` and `--console` choices.
 - Skills, rules and the guide in `docs/blueprint/` are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `docs/automations.md`, `docs/connections.md` and `CLAUDE.md` are never overwritten: they hold your project's records.
-- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.1.1 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/automation-blueprint#v1.1.2 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
@@ -132,7 +132,7 @@ Takes an automation to production: the server or cloud account, credentials, bac
 **Writes** `deploy/{deployment}/`, `releases.md`, the register's status, the infra guide
 
 ### `/automation-fix`
-When something goes wrong: pauses it if it's still causing harm, reproduces the problem from the run record, writes a failing test first, fixes it, and deals with any actions already sent — as you decide.
+When something goes wrong — an issue you give it, or one logged in `docs/issues.md`: pauses it if it's still causing harm, reproduces the problem from the run record, writes a failing test first, fixes it, and deals with any actions already sent — as you decide.
 **Writes** the fix, its tests and cases, the docs it changes
 
 ### `/automation-convert`

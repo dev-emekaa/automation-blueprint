@@ -7,7 +7,7 @@ description: Resolve problems with automations that are built or live — failed
 
 ## 1. Scope
 
-Anything wrong with an automation that exists, found by an alert, a run record, an operator, a client, or me. One issue or a list; each follows Section 2.
+Anything wrong with an automation that exists, found by an alert, a run record, an operator, a client, or me. List the `open` entries of `docs/issues.md` at the start, alongside what I send; an issue still causing harm comes first. Each follows Section 2.
 
 Not a new behaviour: a change to what the automation should do starts in `/automation-spec` revise mode. Not a new automation: that starts in `/automation-spec`.
 
@@ -62,7 +62,7 @@ Carry out exactly what I approved — by hand from the runbook's reversal steps 
 
 ### Step 8 — Ship and report
 
-In the fix's PR, the register's row reads `Live · next Evaluated` (`Paused · next Evaluated` if Step 1 paused it) once every test, case and eval Section 3 lists passes — which is what `/automation-deploy` requires. When a revision is already in progress on `main`, the fix ships as a hotfix: its status is the hotfix branch's register row, and `main`'s row keeps the revision's stage, with the fix noted in Updated. The fix ships as a release through `/automation-deploy` — a patch version, or, when `main` holds unreleased changes to this automation, a hotfix: the branch `hotfix/{slug}-vX.Y.Z` from the live tag (created by a release owner), the fix by a PR to it, and the same fix by a PR to `main` (`ci-cd` → Hotfixes). Report per issue: what it was, the root cause, what changed, the tests and cases added, the side effects and what was done about them, the docs updated, and how it ships. Deliver it as a PR: create a branch off `origin/main`, or off the hotfix branch for a hotfix, push, give me the link. Never create the PR yourself. If Step 1 paused it, resume it once the fix is live and I approve, as `/automation-deploy` → Pause and retire says — supervised first at `medium` and `high` risk.
+In the fix's PR, the register's row reads `Live · next Evaluated` (`Paused · next Evaluated` if Step 1 paused it) once every test, case and eval Section 3 lists passes — which is what `/automation-deploy` requires. When a revision is already in progress on `main`, the fix ships as a hotfix: its status is the hotfix branch's register row, and `main`'s row keeps the revision's stage, with the fix noted in Updated. The fix ships as a release through `/automation-deploy` — a patch version, or, when `main` holds unreleased changes to this automation, a hotfix: the branch `hotfix/{slug}-vX.Y.Z` from the live tag (created by a release owner), the fix by a PR to it, and the same fix by a PR to `main` (`ci-cd` → Hotfixes). Report per issue: what it was, the root cause, what changed, the tests and cases added, the side effects and what was done about them, the docs updated, and how it ships. Deliver it as a PR: create a branch off `origin/main`, or off the hotfix branch for a hotfix, push, give me the link. Never create the PR yourself. If Step 1 paused it, resume it once the fix is live and I approve, as `/automation-deploy` → Pause and retire says — supervised first at `medium` and `high` risk. An issue from `docs/issues.md` moves to `docs/issues-resolved.md` with the date and one line.
 
 ## 3. Definition of done
 
